@@ -1,4 +1,4 @@
-<?php namespace Kevbaldwyn\Avid\Providers;
+<?php namespace KevBaldwyn\Avid\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
