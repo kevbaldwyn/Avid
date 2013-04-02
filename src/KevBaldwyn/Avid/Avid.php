@@ -1,8 +1,6 @@
 <?php namespace KevBaldwyn\Avid;
 
-use LaravelBook\Ardent\Ardent;
-
-class Avid extends Ardent {
+class Avid extends Eloquent {
 	
 	public function __call($method, $parameter) {
 
