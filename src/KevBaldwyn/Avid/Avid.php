@@ -1,5 +1,7 @@
 <?php namespace KevBaldwyn\Avid;
 
+use Eloquent;
+
 class Avid extends Eloquent {
 	
 	public function __call($method, $parameter) {
