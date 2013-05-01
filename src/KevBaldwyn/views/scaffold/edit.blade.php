@@ -1,4 +1,4 @@
-{{ Form::model($model, ['method' => 'put', 'route' => ['categories.update', $model->id]]) }}
+{{ Form::model($model, ['method' => 'put', 'route' => [$model->getTable().'.update', $model->id]]) }}
 	
 	<?php 
 
