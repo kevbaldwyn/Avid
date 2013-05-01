@@ -1,8 +1,70 @@
 <?php namespace KevBaldwyn\Avid;
 
 use Eloquent;
+use Validator;
 
 class Avid extends Eloquent {
+	
+	protected $guarded = array('id');
+	
+	protected $errors;
+	
+	protected $validationKey = null;
+	protected static $validationRules = array();
+	
+	
+	public static function boot() {
+		
+		parent::boot();
+		
+		static::saving(function($model) {
+			
+			return $model->validate();
+				
+		});
+		
+	}
+	
+	
+	public function validate() {
+		
+		// which validation rules are we using, if any?
+		if(!empty(static::$validationRules)) {
+		
+			if(!is_null($this->validationKey)) {
+				$rules = static::$validationRules[$this->validationKey];
+			}else{
+				$rules = static::$validationRules;
+			}
+			
+			$validation = Validator::make($this->attributes, $rules);
+		
+			if($validation->passes()) {
+				return true;
+			}else{
+				$this->errors = $validation->messages();
+				return false;
+			}
+			
+		}
+		
+	}
+	
+	
+	public function getErrors() {
+		return $this->errors;
+	}
+	
+	
+	public function hasErrors() {
+		return (count($this->getErrors() > 0)) ? true : false;
+	}
+	
+	
+	public function setValidationKey($key) {
+		$this->validationKey = $key;
+	}
+	
 	
 	public function __call($method, $parameter) {
 
