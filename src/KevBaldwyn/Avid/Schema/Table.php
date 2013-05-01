@@ -33,6 +33,22 @@ class Table {
 	}
 	
 	
+	public function form($ignore = null, $options = array()) {
+		$fields = $this->getFields();
+		
+		$html = '';
+		
+		foreach($fields as $field) {
+			if(!is_array($ignore) || (is_array($ignore) && !in_array($field->name, $ignore))) {
+				$html .= $field->form();
+			}
+		}
+		
+		return $html;
+		
+	}
+	
+	
 	public function getFields() {
 		return $this->fields;
 	}
