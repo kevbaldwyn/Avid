@@ -2,13 +2,14 @@
 
 use Debugger;
 use Form;
+use Session;
 
 class Field {
 	
 	private $attributes = array();
 	
 	public function __construct($field) {
-		
+				
 		$this->attributes['name']      = $field->Field;
 		$this->attributes['collation'] = $field->Collation;
 		$this->attributes['key']       = $field->Key;
@@ -35,16 +36,20 @@ class Field {
 	
 
 	/**
+	 * This method is kinda a short cut for building forms 
+	 * however it's real benefit is for scaffolding large CRUD style forms for editing DB records
+	 * where we can build an entire intelligent form based on a Model (table name)
+	 *
 	 * @todo can we use a custom form macro to make all this super smooth?
 	 *
 	 * $tableSchema = new Table('table');
-	 *
 	 * $tableSchema->getField('name')->form(array('label' => 'The Name'));
 	 */
-	public function form($options = array(), $wrapElement = '<div class="control-group">:label:input:error</div>') {
+	public function form($options = array(), $wrapElement = '<div class="control-group :css-error">:label:input:error</div>') {
 				
 		$field = $this->attributes;
 		
+		// label
 		$label = Form::label($field['name'], ((array_key_exists('label', $options)) ?: $this->humanName($field['name'])));
 		
 		// remove label - all other options are passed to the form element
@@ -53,8 +58,7 @@ class Field {
 			unset($options['label']);
 		}
 		
-		$error = '';
-		
+		// input
 		switch($this->attributes['input']) {
 			
 			case 'checkbox' :
@@ -84,6 +88,18 @@ class Field {
 					$input = Form::text($field['name'], null, $options);
 				break;
 		}
+		
+		// error
+		$error      = '';
+		$errorFlag  = false;
+		if(Session::has('errors') && Session::get('errors')->has($field['name'])) {
+			$error       = '<span class="help-inline"><ul>' . implode('', Session::get('errors')->get($field['name'], '<li>:message</li>'))  . '</ul></span>';
+			$errorFlag   = true;
+			$wrapElement = str_replace(':css-error', 'error', $wrapElement);
+		}else{
+			$wrapElement = str_replace(':css-error', '', $wrapElement);
+		}
+		
 		
 		if($wrapElement) {
 			$wrapElement = str_replace(':label', $label, $wrapElement);
@@ -132,17 +148,6 @@ class Field {
 
 			}
 			
-			/*
-			if(in_array(inflector::pluralize($match[1]), configure::get('app.models'))) {
-				$m = model::load(inflector::pluralize($match[1]));
-				
-				// get the data from the model to put in th elist
-				$opts['options'] = $m->selectList();
-				$this->data['input'] = 'select';
-			}else{
-				$this->data['input'] = 'input';
-			}
-			*/
 		}
 		
 		return $t;

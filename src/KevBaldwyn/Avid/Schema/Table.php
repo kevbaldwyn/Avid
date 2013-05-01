@@ -2,6 +2,7 @@
 
 use DB;
 use Debugger;
+use Eloquent;
 
 class Table {
 	
@@ -9,8 +10,13 @@ class Table {
 	private $fields = array();
 	
 	
-	public function __construct($table) {
-		$this->table = $table;
+	public function __construct($mixed) {
+
+		if($mixed instanceof Eloquent) {
+			$this->table = $mixed->getTable();
+		}else{
+			$this->table = $mixed;
+		}
 		
 		$this->readFields();
 	}
