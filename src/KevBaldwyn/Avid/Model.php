@@ -3,7 +3,7 @@
 use Eloquent;
 use Validator;
 
-class Avid extends Eloquent {
+class Model extends Eloquent {
 	
 	protected $guarded = array('id');
 	
