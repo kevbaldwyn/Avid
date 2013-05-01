@@ -2,6 +2,7 @@
 
 use Eloquent;
 use Validator;
+use Doctrine\Common\Inflector\Inflector;
 
 class Model extends Eloquent {
 	
@@ -11,6 +12,8 @@ class Model extends Eloquent {
 	
 	protected $validationKey = null;
 	protected static $validationRules = array();
+	
+	protected $nameField = 'name';
 	
 	
 	public static function boot() {
@@ -63,6 +66,28 @@ class Model extends Eloquent {
 	
 	public function setValidationKey($key) {
 		$this->validationKey = $key;
+	}
+	
+	
+	public static function modelFromTable($tableName) {
+		$name = Inflector::classify(Inflector::singularize($tableName));
+		return new $name;
+	}
+	
+	
+	/**
+	 * @todo build in query options
+	 */
+	public function selectList($options = array()) {
+		
+		$blank = (array_key_exists('blank', $options)) ?: 'Choose an option';
+		$key   = (array_key_exists('key', $options)) ?: 'id';
+		$value = (array_key_exists('value', $options)) ?: $this->nameField;
+		
+		$initial = array(null => $blank);
+		$list    = $this->lists($value, $key);
+		
+		return array_merge($initial, $list);
 	}
 	
 	
