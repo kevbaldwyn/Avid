@@ -84,7 +84,7 @@ class Model extends Eloquent {
 		$key   = (array_key_exists('key', $options)) ?: 'id';
 		$value = (array_key_exists('value', $options)) ?: $this->nameField;
 		
-		$initial = array(null => $blank);
+		$initial = array('' => $blank);
 		$list    = $this->lists($value, $key);
 		
 		return array_merge($initial, $list);
