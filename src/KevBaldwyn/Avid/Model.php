@@ -29,6 +29,14 @@ class Model extends Eloquent {
 	}
 	
 	
+	public static function make($model) {
+		// be sure we have the correct model name
+		$name = static::modelFromTable($model);
+		
+		return new $name;
+	}
+	
+	
 	public function validate() {
 		
 		// which validation rules are we using, if any?
@@ -71,6 +79,7 @@ class Model extends Eloquent {
 	
 	public static function modelFromTable($tableName) {
 		$name = Inflector::classify(Inflector::singularize($tableName));
+				
 		return new $name;
 	}
 	
