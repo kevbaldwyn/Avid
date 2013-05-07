@@ -28,7 +28,7 @@ class Table {
 		
 		// set fields as list of Field objects 
 		foreach($fields as $field) {
-			$this->fields[$field->Field] = new Field($field);
+			$this->fields[$field->Field] = new Field($field, $this);
 		}
 	}
 	
@@ -59,6 +59,11 @@ class Table {
 	
 	public function getFields() {
 		return $this->fields;
+	}
+	
+	
+	public function getName() {
+		return $this->table;
 	}
 	
 	

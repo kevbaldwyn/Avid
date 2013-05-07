@@ -7,9 +7,12 @@ use Session;
 class Field {
 	
 	private $attributes = array();
+	private $table;
 	
-	public function __construct($field) {
-				
+	public function __construct($field, \KevBaldwyn\Avid\Schema\Table $table) {
+		
+		$this->table = $table;
+		
 		$this->attributes['name']      = $field->Field;
 		$this->attributes['collation'] = $field->Collation;
 		$this->attributes['key']       = $field->Key;
@@ -156,6 +159,12 @@ class Field {
 	
 	
 	private function modelForRelatedField() {
+		
+		// if the field name is "parent" then it is the same model but a different id
+		if($this->attributes['name'] == 'parent') {
+			return $this->table->getName();
+		}
+		
 		if(preg_match('/([a-z_]*)_id/', $this->attributes['name'], $match)) {
 			return $match[1];
 		}else{
