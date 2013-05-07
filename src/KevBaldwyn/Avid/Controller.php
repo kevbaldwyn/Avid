@@ -48,7 +48,7 @@ class Controller extends \Illuminate\Routing\Controllers\Controller {
 		$model = static::model()->find($id);
 		
 		// passs the ignore param from the model
-		return View::make('categories.edit')
+		return View::make($model->getTable() . '.edit')
 						->nest('form', 'avid::scaffold.edit', array('ignore' => $model->getNotEditable(),
 																	 'model'  => $model));
 		
