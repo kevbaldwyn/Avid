@@ -21,6 +21,12 @@ class Model extends Eloquent {
 	
 	protected $nameField = 'name';
 	
+	/**
+	 * a list of attribute names that have different labels
+	 * ie: 'parent_id' => 'parent item'
+	 */
+	protected $customAttributes = array();
+	
 	
 	public static function boot() {
 		
@@ -55,7 +61,11 @@ class Model extends Eloquent {
 			}
 			
 			$validation = Validator::make($this->attributes, $rules);
-		
+			
+			if(is_array($this->customAttributes)) {
+				$validation->setAttributeNames($this->customAttributes);
+			}
+			
 			if($validation->passes()) {
 				return true;
 			}else{
@@ -80,6 +90,11 @@ class Model extends Eloquent {
 	
 	public function setValidationKey($key) {
 		$this->validationKey = $key;
+	}
+	
+	
+	public function getCustomAttributes() {
+		return $this->customAttributes;
 	}
 	
 	

@@ -50,7 +50,7 @@ class Field {
 		$field = $this->attributes;
 		
 		// label
-		$label = Form::label($field['name'], ((array_key_exists('label', $options)) ?: $this->humanName($field['name'])));
+		$label = Form::label($field['name'], ((array_key_exists('label', $options)) ? ucfirst($options['label']) : $this->humanName()));
 		
 		// remove label - all other options are passed to the form element
 		// can we use the label for the error message?

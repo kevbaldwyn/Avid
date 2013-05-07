@@ -39,8 +39,16 @@ class Table {
 		$html = '';
 		
 		foreach($fields as $field) {
+			// if this field is not being ignored
 			if(!is_array($ignore) || (is_array($ignore) && !in_array($field->name, $ignore))) {
-				$html .= $field->form();
+			
+				$fieldOptions = array();
+				// do we have a csutom name for this field to set as the label?
+				if(array_key_exists('customAttributes', $options) && array_key_exists($field->name, $options['customAttributes'])) {
+					$fieldOptions['label'] = $options['customAttributes'][$field->name];
+				}
+				
+				$html .= $field->form($fieldOptions);
 			}
 		}
 		

@@ -4,7 +4,7 @@
 
 	$schema = new KevBaldwyn\Avid\Schema\Table($model);
 	
-	echo $schema->form($ignore);
+	echo $schema->form($ignore, array('customAttributes' => $model->getCustomAttributes()));
 	
 	?>
 	
