@@ -2,6 +2,8 @@
 
 use View;
 use Debugger;
+use Input;
+use Redirect;
 
 class Controller extends \Illuminate\Routing\Controllers\Controller {
 	
@@ -30,6 +32,8 @@ class Controller extends \Illuminate\Routing\Controllers\Controller {
 	}
 	
 	
+	
+	
 	public function create() {
 		
 	}
@@ -47,7 +51,6 @@ class Controller extends \Illuminate\Routing\Controllers\Controller {
 
 		$model = static::model()->find($id);
 		
-		// passs the ignore param from the model
 		return View::make($model->getTable() . '.edit')
 						->nest('form', 'avid::scaffold.edit', array('ignore' => $model->getNotEditable(),
 																	 'model'  => $model));
@@ -55,8 +58,21 @@ class Controller extends \Illuminate\Routing\Controllers\Controller {
 	}
 	
 	
+	/**
+	 * PUT /controller/{id}
+	 */
 	public function update($id) {
+	
+		$model = static::model()->find($id);
 		
+		$model->fill(Input::all());
+		
+		if($model->save()) {
+			die('saved!');
+		}else{
+			return Redirect::back()->withInput()->withErrors($model->getErrors());
+		}
+			
 	}
 	
 	
