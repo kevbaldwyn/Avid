@@ -4,8 +4,17 @@ use View;
 use Debugger;
 use Input;
 use Redirect;
+use Illuminate\Support\Contracts\MessageProviderInterface;
 
 class Controller extends \Illuminate\Routing\Controllers\Controller {
+	
+	protected $messages;
+	
+	
+	public function __construct(MessageProviderInterface $messages) {
+		$this->messages = $messages;
+		View::share('messages', $messages);
+	}
 	
 
 	/**
@@ -68,7 +77,10 @@ class Controller extends \Illuminate\Routing\Controllers\Controller {
 		$model->fill(Input::all());
 		
 		if($model->save()) {
-			die('saved!');
+			$this->messages->add('success', 'The item has been saved.')
+						   ->flash();
+    
+			return Redirect::back();
 		}else{
 			return Redirect::back()->withInput()->withErrors($model->getErrors());
 		}

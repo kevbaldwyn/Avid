@@ -1,5 +1,6 @@
 <?php namespace KevBaldwyn\Avid\Providers;
 
+use KevBaldwyn\Avid\FlashMessageBag; 
 use Illuminate\Support\ServiceProvider;
 
 class AvidServiceProvider extends ServiceProvider {
@@ -28,7 +29,17 @@ class AvidServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+		
+		$app = $this->app;
+		
+		$this->app->bind(
+					'Illuminate\Support\Contracts\MessageProviderInterface', 
+					function() use ($app) {
+						return new FlashMessageBag($app->make('session'));
+					}
+		);
+		
+		
 	}
 
 	/**
