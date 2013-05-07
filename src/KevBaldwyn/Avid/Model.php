@@ -115,14 +115,14 @@ class Model extends Eloquent {
 	 */
 	public function selectList($options = array()) {
 		
-		$blank = (array_key_exists('blank', $options)) ?: 'Choose an option';
-		$key   = (array_key_exists('key', $options)) ?: 'id';
-		$value = (array_key_exists('value', $options)) ?: $this->nameField;
+		$blank = (array_key_exists('blank', $options)) ? $options['blank'] : 'Choose an option';
+		$key   = (array_key_exists('key', $options)) ? $options['key'] : 'id';
+		$value = (array_key_exists('value', $options)) ? $options['value'] : $this->nameField;
 		
-		$initial = array('' => $blank);
+		$initial = array('null' => $blank);
 		$list    = $this->lists($value, $key);
-		
-		return array_merge($initial, $list);
+
+		return $initial + $list;
 	}
 	
 	

@@ -80,7 +80,7 @@ class Field {
 					// grab select fields
 					$list = $model->selectList();
 					
-					$input = Form::select($field['name'], $list, $options);
+					$input = Form::select($field['name'], $list, null, $options);
 				break;
 			
 			case 'text' :
