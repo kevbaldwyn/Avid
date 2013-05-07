@@ -8,6 +8,12 @@ class Model extends Eloquent {
 	
 	protected $guarded = array('id');
 	
+	/**
+	 * a list of fields not editable
+	 * this gets merged with any gaurded properties
+	 */
+	protected $notEditable = array();
+	
 	protected $errors;
 	
 	protected $validationKey = null;
@@ -81,6 +87,11 @@ class Model extends Eloquent {
 		$name = Inflector::classify(Inflector::singularize($tableName));
 				
 		return new $name;
+	}
+	
+	
+	public function getNotEditable() {
+		return array_merge($this->guarded, $this->notEditable);
 	}
 	
 	

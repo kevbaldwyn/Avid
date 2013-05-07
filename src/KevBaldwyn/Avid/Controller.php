@@ -40,13 +40,16 @@ class Controller extends \Illuminate\Routing\Controllers\Controller {
 	}
 	
 	
+	/**
+	 * form here will PUT (POST) to /controller/{id}/edit which then PUTs (POSTs) to self::update()
+	 */
 	public function edit($id) {
 
 		$model = static::model()->find($id);
 		
 		// passs the ignore param from the model
 		return View::make('categories.edit')
-						->nest('form', 'avid::scaffold.edit', array('ignore' => array('id', 'slug'),
+						->nest('form', 'avid::scaffold.edit', array('ignore' => $model->getNotEditable(),
 																	 'model'  => $model));
 		
 	}
