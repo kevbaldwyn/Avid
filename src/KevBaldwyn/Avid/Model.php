@@ -84,7 +84,7 @@ class Model extends Eloquent {
 	
 	
 	public function hasErrors() {
-		return (count($this->getErrors() > 0)) ? true : false;
+		return (count($this->getErrors()) > 0) ? true : false;
 	}
 	
 	
