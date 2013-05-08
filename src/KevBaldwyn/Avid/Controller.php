@@ -40,16 +40,32 @@ class Controller extends \Illuminate\Routing\Controllers\Controller {
 		return Model::make($className);
 	}
 	
-	
-	
-	
+		
+	/**
+	 * form here will POST to /controller whcih when POSTed will run self::store()
+	 */
 	public function create() {
 		
+		$model = static::model();
+		
+		return View::make($model->getTable() . '.create')
+						->nest('form', 'avid::scaffold.create', array('ignore' => $model->getNotEditable(),
+																	  'model'  => $model));
 	}
 	
 	
 	public function store() {
-			
+							
+		$model = static::model()->create(Input::all());
+		
+		if(!$model->hasErrors()) {
+			$this->messages->add('success', 'The item has been created.')
+						   ->flash();
+    
+			return Redirect::back();
+		}else{
+			return Redirect::back()->withInput()->withErrors($model->getErrors());
+		}
 	}
 	
 	
