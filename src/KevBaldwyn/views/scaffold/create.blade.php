@@ -8,6 +8,8 @@
 	
 	?>
 	
+	{{ Form::token() }}
+	
 	{{ Form::submit('Create') }}
 	
 {{ Form::close() }}

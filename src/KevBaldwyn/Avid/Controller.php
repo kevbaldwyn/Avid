@@ -10,10 +10,12 @@ class Controller extends \Illuminate\Routing\Controllers\Controller {
 	
 	protected $messages;
 	
-	
 	public function __construct(MessageProviderInterface $messages) {
 		$this->messages = $messages;
 		View::share('messages', $messages);
+		
+		// apply csrf filter to any POSTed actions
+		$this->beforeFilter('csrf', array('on' => 'post'));
 	}
 	
 
