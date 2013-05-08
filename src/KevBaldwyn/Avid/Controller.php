@@ -108,5 +108,10 @@ class Controller extends \Illuminate\Routing\Controllers\Controller {
 		
 	}
 	
+	
+	public function missingMethod($parameters) {
+    	parent::missingMethod($parameters);    	
+    }
+	
 }
 
