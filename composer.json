@@ -1,4 +1,10 @@
 {
+    "repositories": [
+        {
+        	"type":"composer",
+	        "url" : "http://packages.purepixel.co.uk"
+        }
+    ],
     "name": "kevbaldwyn/avid",
     "description": "",
     "authors": [
