@@ -2,7 +2,7 @@
 
 trait ModelScaffolding {
 
-	use Properties;
+	use KevBaldwyn\Traits\Properties;
 	
 	
 	private function _defaultProperties() {
