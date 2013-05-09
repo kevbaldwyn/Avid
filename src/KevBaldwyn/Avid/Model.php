@@ -6,107 +6,18 @@ use Doctrine\Common\Inflector\Inflector;
 
 class Model extends Eloquent {
 	
+	use ModelScaffolding;
+
+	
 	protected $guarded = array('id');
-	
-	/**
-	 * a list of fields not editable
-	 * this gets merged with any gaurded properties
-	 */
-	protected $notEditable = array();
-	
-	protected $errors;
-	
-	protected $validationKey = null;
-	protected $validationRules = array();
-	
-	protected $nameField = 'name';
-	
-	/**
-	 * a list of attribute names that have different labels
-	 * ie: 'parent_id' => 'parent item'
-	 */
-	protected $customAttributes = array();
 	
 	
 	public static function boot() {
 		
 		parent::boot();
 		
-		static::saving(function($model) {
-			
-			return $model->validate();
-				
-		});
+		$this->_boot();
 		
-	}
-	
-	
-	public static function make($model) {
-		// be sure we have the correct model name
-		$name = static::modelFromTable($model);
-		
-		return new $name;
-	}
-	
-	
-	public function validate() {
-		
-		// which validation rules are we using, if any?
-		if(!empty($this->validationRules)) {
-		
-			if(!is_null($this->validationKey)) {
-				$rules = $this->validationRules[$this->validationKey];
-			}else{
-				$rules = $this->validationRules;
-			}
-			
-			$validation = Validator::make($this->attributes, $rules);
-			
-			if(is_array($this->customAttributes)) {
-				$validation->setAttributeNames($this->customAttributes);
-			}
-			
-			if($validation->passes()) {
-				return true;
-			}else{
-				$this->errors = $validation->messages();
-				return false;
-			}
-			
-		}
-		
-	}
-	
-	
-	public function getErrors() {
-		return $this->errors;
-	}
-	
-	
-	public function hasErrors() {
-		return (count($this->getErrors()) > 0) ? true : false;
-	}
-	
-	
-	public function setValidationKey($key) {
-		$this->validationKey = $key;
-	}
-	
-	
-	public function getCustomAttributes() {
-		return $this->customAttributes;
-	}
-	
-	
-	public static function modelFromTable($tableName) {
-		$name = Inflector::classify(Inflector::singularize($tableName));
-				
-		return new $name;
-	}
-	
-	
-	public function getNotEditable() {
-		return array_merge($this->guarded, $this->notEditable);
 	}
 	
 	
@@ -117,7 +28,7 @@ class Model extends Eloquent {
 		
 		$blank = (array_key_exists('blank', $options)) ? $options['blank'] : 'Choose an option';
 		$key   = (array_key_exists('key', $options)) ? $options['key'] : 'id';
-		$value = (array_key_exists('value', $options)) ? $options['value'] : $this->nameField;
+		$value = (array_key_exists('value', $options)) ? $options['value'] : $this->__get('nameField');
 		
 		$initial = array('null' => $blank);
 		$list    = $this->lists($value, $key);
