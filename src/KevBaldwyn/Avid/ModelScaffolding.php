@@ -112,4 +112,20 @@ trait ModelScaffolding {
 		return array_merge($this->guarded, $this->__get('notEditable'));
 	}
 	
+	
+	/**
+	 * @todo build in query options
+	 */
+	public function selectList($options = array()) {
+		
+		$blank = (array_key_exists('blank', $options)) ? $options['blank'] : 'Choose an option';
+		$key   = (array_key_exists('key', $options)) ? $options['key'] : 'id';
+		$value = (array_key_exists('value', $options)) ? $options['value'] : $this->__get('nameField');
+		
+		$initial = array('null' => $blank);
+		$list    = $this->lists($value, $key);
+
+		return $initial + $list;
+	}
+	
 }
