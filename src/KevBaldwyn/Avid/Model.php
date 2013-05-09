@@ -17,7 +17,7 @@ class Model extends Eloquent {
 	protected $errors;
 	
 	protected $validationKey = null;
-	protected static $validationRules = array();
+	protected $validationRules = array();
 	
 	protected $nameField = 'name';
 	
@@ -52,12 +52,12 @@ class Model extends Eloquent {
 	public function validate() {
 		
 		// which validation rules are we using, if any?
-		if(!empty(static::$validationRules)) {
+		if(!empty($this->validationRules)) {
 		
 			if(!is_null($this->validationKey)) {
-				$rules = static::$validationRules[$this->validationKey];
+				$rules = $this->validationRules[$this->validationKey];
 			}else{
-				$rules = static::$validationRules;
+				$rules = $this->validationRules;
 			}
 			
 			$validation = Validator::make($this->attributes, $rules);
