@@ -1,8 +1,6 @@
 <?php namespace KevBaldwyn\Avid;
 
 use Eloquent;
-use Validator;
-use Doctrine\Common\Inflector\Inflector;
 
 class Model extends Eloquent {
 	

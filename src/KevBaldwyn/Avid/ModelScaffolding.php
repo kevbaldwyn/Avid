@@ -1,5 +1,8 @@
 <?php namespace KevBaldwyn\Avid;
 
+use Validator;
+use Doctrine\Common\Inflector\Inflector;
+
 trait ModelScaffolding {
 
 	use \KevBaldwyn\Traits\Properties;
