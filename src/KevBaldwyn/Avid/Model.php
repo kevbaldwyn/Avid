@@ -2,11 +2,21 @@
 
 use Eloquent;
 
-class Model extends Eloquent {
+abstract class Model extends Eloquent {
 	
 	use ModelScaffolding;
 
 	protected $guarded = array('id');
+	
+
+	public function __construct(array $attributes = array()) {
+		parent::__construct($attributes);
+		
+		$this->InitModelScaffolding();
+	}
+	
+	
+	abstract protected function InitModelScaffolding();
 	
 	
 	public function __call($method, $parameter) {
