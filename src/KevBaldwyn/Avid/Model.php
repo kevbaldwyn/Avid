@@ -6,15 +6,7 @@ class Model extends Eloquent {
 	
 	use ModelScaffolding;
 
-	
 	protected $guarded = array('id');
-	
-		
-	public function __construct(array $attributes = array()) {
-		parent::__construct($attributes);
-		
-		$this->_boot();
-	}
 	
 	
 	public function __call($method, $parameter) {

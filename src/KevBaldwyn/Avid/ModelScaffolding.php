@@ -32,7 +32,10 @@ trait ModelScaffolding {
 	}
 	
 	
-	protected function _boot(array $properties = array()) {
+	/**
+	 * this is bascially the constructor and must be called to take advantage of the scaffolding facilities
+	 */
+	protected function _InitModelScaffolding(array $properties = array()) {
 		
 		// set passed options
 		$this->_setProperties($properties);
