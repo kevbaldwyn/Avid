@@ -11,13 +11,11 @@ class Model extends Eloquent {
 	
 	protected $guarded = array('id');
 	
-	
-	public static function boot() {
 		
-		parent::boot();
+	public function __construct(array $attributes = array()) {
+		parent::__construct($attributes);
 		
 		$this->_boot();
-		
 	}
 	
 	
