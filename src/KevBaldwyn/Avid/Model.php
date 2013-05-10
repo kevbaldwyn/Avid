@@ -12,7 +12,7 @@ abstract class Model extends Eloquent {
 	public function __construct(array $attributes = array()) {
 		parent::__construct($attributes);
 		
-		$this->InitModelScaffolding();
+		$this->_InitModelScaffolding($this->InitModelScaffolding());
 	}
 	
 	
