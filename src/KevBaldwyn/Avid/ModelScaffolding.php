@@ -55,7 +55,7 @@ trait ModelScaffolding {
 	public function validateInput() {
 		
 		// which validation rules are we using, if any?
-		if(!empty($this->__get('validationRules'))) {
+		if(!is_null($this->__get('validationRules'))) {
 		
 			if(!is_null($this->__get('validationKey'))) {
 				$rules = $this->__get('validationRules')[$this->__get('validationKey')];
