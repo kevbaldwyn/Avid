@@ -10,12 +10,16 @@ class Controller extends \Illuminate\Routing\Controllers\Controller {
 	
 	protected $messages;
 	
+	protected $viewPath;
+	
 	public function __construct(MessageProviderInterface $messages) {
 		$this->messages = $messages;
 		View::share('messages', $messages);
 		
 		// apply csrf filter to any POSTed actions
 		$this->beforeFilter('csrf', array('on' => 'post'));
+		
+		$this->setViewPath($this->static::model()->getTable());
 	}
 	
 
@@ -30,6 +34,11 @@ class Controller extends \Illuminate\Routing\Controllers\Controller {
 		{
 			$this->layout = View::make($this->layout);
 		}
+	}
+	
+	
+	protected function setViewPath($path) {
+		$this->viewPath = $path;
 	}
 	
 	
@@ -50,7 +59,7 @@ class Controller extends \Illuminate\Routing\Controllers\Controller {
 		
 		$model = static::model();
 		
-		return View::make($model->getTable() . '.create')
+		return View::make($this->viewPath . '.create')
 						->nest('form', 'avid::scaffold.create', array('ignore' => $model->getNotEditable(),
 																	  'model'  => $model));
 	}
@@ -78,7 +87,7 @@ class Controller extends \Illuminate\Routing\Controllers\Controller {
 
 		$model = static::model()->find($id);
 		
-		return View::make($model->getTable() . '.edit')
+		return View::make($this->viewPath . '.edit')
 						->nest('form', 'avid::scaffold.edit', array('ignore' => $model->getNotEditable(),
 																	 'model'  => $model));
 		
