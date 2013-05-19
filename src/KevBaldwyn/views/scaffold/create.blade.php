@@ -1,4 +1,4 @@
-{{ Form::model($model, ['method' => 'post', 'route' => [$model->getTable().'.store']]) }}
+{{ Form::model($model, ['method' => 'post', 'route' => ['admin.' . $model->getTable() . '.store']]) }}
 	
 	<?php 
 
