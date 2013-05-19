@@ -19,7 +19,7 @@ class Controller extends \Illuminate\Routing\Controllers\Controller {
 		// apply csrf filter to any POSTed actions
 		$this->beforeFilter('csrf', array('on' => 'post'));
 		
-		$this->setViewPath($this->static::model()->getTable());
+		$this->setViewPath(static::model()->getTable());
 	}
 	
 
