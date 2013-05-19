@@ -51,6 +51,16 @@ class Controller extends \Illuminate\Routing\Controllers\Controller {
 		return Model::make($className);
 	}
 	
+	
+	public function index() {
+		
+		$model = static::model();
+		
+		return View::make($this->viewPath . '.index')
+						->nest('list_html', 'avid::scaffold.index', array('model' => $model,
+																	 'list'  => $model->all()));
+	}
+	
 		
 	/**
 	 * form here will POST to /controller whcih when POSTed will run self::store()
