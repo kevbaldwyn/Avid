@@ -69,7 +69,7 @@ class Controller extends \Illuminate\Routing\Controllers\Controller {
 		
 		$model = static::model();
 		
-		return View::make($this->viewPath . '.create')
+		return View::make($this->viewPath . '.create', array('model' => $model))
 						->nest('form', 'avid::scaffold.create', array('ignore' => $model->getNotEditable(),
 																	  'model'  => $model));
 	}
@@ -97,7 +97,7 @@ class Controller extends \Illuminate\Routing\Controllers\Controller {
 
 		$model = static::model()->find($id);
 		
-		return View::make($this->viewPath . '.edit')
+		return View::make($this->viewPath . '.edit', array('model' => $model))
 						->nest('form', 'avid::scaffold.edit', array('ignore' => $model->getNotEditable(),
 																	 'model'  => $model));
 		
