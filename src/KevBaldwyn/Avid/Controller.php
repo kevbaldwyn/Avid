@@ -56,7 +56,7 @@ class Controller extends \Illuminate\Routing\Controllers\Controller {
 		
 		$model = static::model();
 		
-		return View::make($this->viewPath . '.index')
+		return View::make($this->viewPath . '.index', array('model' => $model))
 						->nest('list_html', 'avid::scaffold.index', array('model' => $model,
 																	 'list'  => $model->all()));
 	}
