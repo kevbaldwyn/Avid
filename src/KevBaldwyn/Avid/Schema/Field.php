@@ -136,7 +136,7 @@ class Field {
 						'datetime' => 'text', // to do: implement proper date
 						'date'     => 'text'); // to do: implement proper date
 				
-		$t = ($inputs[$this->attributes['type']] != null) ? $inputs[$this->attributes['type']] : 'input';
+		$t = (array_key_exists($this->attributes['type'], $inputs)) ? $inputs[$this->attributes['type']] : 'input';
 		
 		$relatedModelName = $this->modelForRelatedField();
 		if($this->attributes['type'] == 'int' && !is_null($relatedModelName)) {
