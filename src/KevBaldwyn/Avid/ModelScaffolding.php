@@ -119,6 +119,20 @@ trait ModelScaffolding {
 	}
 	
 	
+	public function getScaffoldRoute($endpoint) {
+		
+		$prefix = \Config::get('avid::admin.route_prefix');
+		$route  = $this->getTable();
+		
+		if($prefix && !is_null($prefix)) {
+			return $prefix . '.' . $route . '.' . $endpoint;
+		}
+		
+		return $route . '.' . $endpoint;
+		
+	}
+	
+	
 	/**
 	 * @todo build in query options
 	 */

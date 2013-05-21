@@ -30,6 +30,8 @@ class AvidServiceProvider extends ServiceProvider {
 	public function register()
 	{
 		
+		\Config::package('kevbaldwyn/avid', __DIR__.'/../../../config');
+		
 		$app = $this->app;
 		
 		$this->app->bind(
