@@ -133,6 +133,11 @@ trait ModelScaffolding {
 		return $route . $endpoint;
 		
 	}
+
+
+	public function getNameField() {
+		return $this->{$this->nameField};
+	}
 	
 	
 	/**
