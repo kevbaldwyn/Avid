@@ -124,8 +124,32 @@ class Controller extends \Illuminate\Routing\Controllers\Controller {
 			
 	}
 	
+
+	/**
+	 * GET /model/id/delete
+	 */
+	public function delete($id) {
+
+		$model = static::model()->find($id);
+		
+		// renders form which DELETES (POSTS) to destroy
+		return View::make($this->viewPath . '.delete', array('model' => $model))
+						->nest('form', 'avid::scaffold.delete', array('model'  => $model));
+	}
+
 	
 	public function destroy($id) {
+	
+		$model = static::model()->find($id);
+		
+		if($model->delete()) {
+			$this->messages->add('success', 'The item has been deleted.')
+						   ->flash();
+    
+			return Redirect::route(static::model()->getScaffoldRoute('index'));
+		}else{
+			return Redirect::back()->withInput()->withErrors($model->getErrors());
+		}
 		
 	}
 	
