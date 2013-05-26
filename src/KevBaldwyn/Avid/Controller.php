@@ -83,7 +83,7 @@ class Controller extends \Illuminate\Routing\Controllers\Controller {
 			$this->messages->add('success', 'The item has been created.')
 						   ->flash();
     
-			return Redirect::back();
+			return Redirect::back(static::model()->getScaffoldRoute('index'));
 		}else{
 			return Redirect::back()->withInput()->withErrors($model->getErrors());
 		}
@@ -117,7 +117,7 @@ class Controller extends \Illuminate\Routing\Controllers\Controller {
 			$this->messages->add('success', 'The item has been saved.')
 						   ->flash();
     
-			return Redirect::back();
+			return Redirect::route(static::model()->getScaffoldRoute('index'));
 		}else{
 			return Redirect::back()->withInput()->withErrors($model->getErrors());
 		}
