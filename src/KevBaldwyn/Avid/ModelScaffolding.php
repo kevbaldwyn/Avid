@@ -136,7 +136,7 @@ trait ModelScaffolding {
 
 
 	public function getNameField() {
-		return $this->{$this->nameField};
+		return $this->{$this->__get('nameField')};
 	}
 	
 	
