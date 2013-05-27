@@ -1,6 +1,5 @@
 <?php namespace KevBaldwyn\Avid\Schema;
 
-use Debugger;
 use Form;
 use Session;
 

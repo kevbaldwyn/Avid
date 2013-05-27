@@ -1,7 +1,6 @@
 <?php namespace KevBaldwyn\Avid;
 
 use View;
-use Debugger;
 use Input;
 use Redirect;
 use Illuminate\Support\Contracts\MessageProviderInterface;

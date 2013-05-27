@@ -1,7 +1,6 @@
 <?php namespace KevBaldwyn\Avid\Schema;
 
 use DB;
-use Debugger;
 use Eloquent;
 
 class Table {
