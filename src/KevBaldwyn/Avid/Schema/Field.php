@@ -68,7 +68,8 @@ class Field {
 					if($wrapElement) {
 						$wrapElement = str_replace(':label:input', ':input:label', $wrapElement);
 					}
-					$input = Form::checkbox($field['name'], 1, null, $options);
+					$input  = Form::hidden($field['name'], '0');
+					$input .= Form::checkbox($field['name'], 1, null, $options);
 				break;
 			
 			case 'textarea' :
