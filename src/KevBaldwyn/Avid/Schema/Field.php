@@ -88,7 +88,11 @@ class Field {
 			
 			case 'text' :
 			default:
-					$input = Form::text($field['name'], null, $options);
+					if($field['name'] == 'password') {
+						$input = Form::password($field['name'], null, $options);
+					}else{
+						$input = Form::text($field['name'], null, $options);
+					}
 				break;
 		}
 		
