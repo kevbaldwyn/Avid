@@ -20,6 +20,7 @@ class AvidServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('kevbaldwyn/avid');
+		require_once(__DIR__.'/../form-macros.php');
 	}
 
 	/**
@@ -40,7 +41,6 @@ class AvidServiceProvider extends ServiceProvider {
 						return new FlashMessageBag($app->make('session'));
 					}
 		);
-		
 		
 	}
 

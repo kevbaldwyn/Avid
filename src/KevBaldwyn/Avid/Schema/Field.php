@@ -118,6 +118,14 @@ class Field {
 		return $label . $input . $error; 
 		
 	}
+
+
+	public static function errorField($name) {
+		if(Session::has('errors') && Session::get('errors')->has($name)) {
+			return '<span class="help-inline"><ul>' . implode('', Session::get('errors')->get($name, '<li>:message</li>'))  . '</ul></span>';
+		}
+		return '';
+	}
 	
 	
 	public function __get($key) {
