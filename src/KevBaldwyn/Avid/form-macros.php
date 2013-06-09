@@ -6,6 +6,6 @@
 /**
  * generate an error field for an input
  */
-Form::macro('errorField', function($name) {
-	return \KevBaldwyn\Avid\Schema\Field::errorField($name);
+Form::macro('error', function($name) {
+	return \KevBaldwyn\Avid\Schema\Field::error($name);
 });
