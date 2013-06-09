@@ -100,7 +100,7 @@ class Field {
 		$error      = '';
 		$errorFlag  = false;
 		if(Session::has('errors') && Session::get('errors')->has($field['name'])) {
-			$error       = '<span class="help-inline"><ul>' . implode('', Session::get('errors')->get($field['name'], '<li>:message</li>'))  . '</ul></span>';
+			$error       = static::errorField($field['name']);
 			$errorFlag   = true;
 			$wrapElement = str_replace(':css-error', 'error', $wrapElement);
 		}else{
