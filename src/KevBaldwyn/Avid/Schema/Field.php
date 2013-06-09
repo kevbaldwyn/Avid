@@ -99,7 +99,7 @@ class Field {
 		// error
 		$error      = '';
 		$errorFlag  = false;
-		if(Session::has('errors') && Session::get('errors')->has($field['name'])) {
+		if(static::hasError($field['name'])) {
 			$error       = static::error($field['name']);
 			$errorFlag   = true;
 			$wrapElement = str_replace(':css-error', 'error', $wrapElement);
@@ -120,8 +120,12 @@ class Field {
 	}
 
 
+	public static function hasError($name) {
+		return (Session::has('errors') && Session::get('errors')->has($name)) ? true : false;
+	}
+
 	public static function error($name) {
-		if(Session::has('errors') && Session::get('errors')->has($name)) {
+		if(static::hasError($name)) {
 			return '<span class="help-inline"><ul>' . implode('', Session::get('errors')->get($name, '<li>:message</li>'))  . '</ul></span>';
 		}
 		return '';
