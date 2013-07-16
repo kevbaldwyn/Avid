@@ -13,20 +13,11 @@ abstract class Model extends Eloquent {
 		parent::__construct($attributes);
 		
 		$this->_InitModelScaffolding($this->InitModelScaffolding());
-
-		static::events();
 	}
 	
 	
 	abstract protected function InitModelScaffolding();
 	
-	
-	public function events() {
-		/** 
-		 * register any model events or observer bindings here
-		 */
-	}
-
 	
 	public function __call($method, $parameter) {
 
