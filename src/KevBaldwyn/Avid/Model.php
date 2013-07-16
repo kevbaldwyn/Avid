@@ -21,7 +21,7 @@ abstract class Model extends Eloquent {
 	abstract protected function InitModelScaffolding();
 	
 	
-	public static function events() {
+	public function events() {
 		/** 
 		 * register any model events or observer bindings here
 		 */
