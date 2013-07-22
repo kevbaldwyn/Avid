@@ -7,6 +7,8 @@ abstract class Model extends Eloquent {
 	use ModelScaffolding;
 
 	protected $guarded = array('id');
+
+	private $actualTableFields = array();
 	
 
 	public function __construct(array $attributes = array()) {
@@ -17,6 +19,16 @@ abstract class Model extends Eloquent {
 	
 	
 	abstract protected function InitModelScaffolding();
+	
+
+	public function hasField($key) {
+		if(count($this->actualTableFields) > 0) {
+			$fields = $this->actualTableFields;
+		}else{
+			$fields = DB::raw('SHOW FULL FIELDS FROM ' . $this->getTable())->list('Field');
+		}
+		return in_array($key, $fields);
+	}
 	
 	
 	public function __call($method, $parameter) {
