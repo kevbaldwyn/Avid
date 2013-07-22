@@ -25,11 +25,11 @@ abstract class Model extends Eloquent {
 		if(count($this->actualTableFields) > 0) {
 			$fields = $this->actualTableFields;
 		}else{
-			$fields = DB::raw('SHOW FULL FIELDS FROM ' . $this->getTable())->list('Field');
+			$fields = DB::raw('SHOW FULL FIELDS FROM ' . $this->getTable())->lists('Field');
 		}
 		return in_array($key, $fields);
 	}
-	
+
 	
 	public function __call($method, $parameter) {
 
