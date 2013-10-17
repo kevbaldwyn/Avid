@@ -1,7 +1,7 @@
 <?php namespace KevBaldwyn\Avid; 
 
 use Illuminate\Support\MessageBag;
-use Illuminate\Session\Store;
+use Illuminate\Session\SessionManager;
 
 class FlashMessageBag extends MessageBag {
 
@@ -9,7 +9,7 @@ class FlashMessageBag extends MessageBag {
     protected $session;
 
 
-    public function __construct(Store $session, $messages = array()) {
+    public function __construct(SessionManager $session, $messages = array()) {
         $this->session = $session;
 
         if ($session->has($this->sessionKey)) {
