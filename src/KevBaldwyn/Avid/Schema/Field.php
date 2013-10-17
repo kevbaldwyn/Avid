@@ -2,6 +2,7 @@
 
 use Form;
 use Session;
+use Doctrine\Common\Inflector\Inflector;
 
 class Field {
 	
@@ -78,8 +79,8 @@ class Field {
 			
 			case 'select' :
 					// get model
-					$model = \KevBaldwyn\Avid\Model::modelFromTable($this->modelForRelatedField());
-					
+					$model = static::modelFromTableExists($this->modelForRelatedField());
+
 					// grab select fields
 					$list = $model->selectList();
 					
@@ -157,11 +158,10 @@ class Field {
 		$relatedModelName = $this->modelForRelatedField();
 		if($this->attributes['type'] == 'int' && !is_null($relatedModelName)) {
 			
-			try {
-				$model = \KevBaldwyn\Avid\Model::modelFromTable($relatedModelName);
+			if(static::modelFromTableExists($relatedModelName)) {
 				return 'select';
 
-			}catch(Exception $e) {
+			}else{
 
 				return 'text';
 
@@ -171,6 +171,16 @@ class Field {
 		
 		return $t;
 		
+	}
+
+
+	public static function modelFromTableExists($tableName) {
+		$name = Inflector::classify(Inflector::singularize($tableName));
+		if(class_exists($name)) {
+			return new $name;
+		}else{
+			return false;
+		}
 	}
 	
 	
