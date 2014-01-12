@@ -16,7 +16,7 @@
     "require": {
         "php": ">=5.3.0",
         "illuminate/support": "4.1.*",
-        "kevbaldwyn/properties-trait": "dev-master"
+        "kevbaldwyn/properties-trait": "dev-master",
         "doctrine/inflector": "1.*"
     },
     "autoload": {
