@@ -5,7 +5,7 @@ use Input;
 use Redirect;
 use Illuminate\Support\Contracts\MessageProviderInterface;
 
-class Controller extends \Illuminate\Routing\Controllers\Controller {
+class Controller extends \Illuminate\Routing\Controller {
 	
 	protected $messages;
 	
@@ -153,7 +153,7 @@ class Controller extends \Illuminate\Routing\Controllers\Controller {
 	}
 	
 	
-	public function missingMethod($parameters) {
+	public function missingMethod($parameters = array()) {
     	parent::missingMethod($parameters);    	
     }
 	
