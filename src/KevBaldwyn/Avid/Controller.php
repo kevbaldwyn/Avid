@@ -128,7 +128,7 @@ class Controller extends \Illuminate\Routing\Controllers\Controller {
 	 * GET /model/id/delete
 	 */
 	public function delete($id) {
-
+		
 		$model = static::model()->find($id);
 		
 		// renders form which DELETES (POSTS) to destroy
